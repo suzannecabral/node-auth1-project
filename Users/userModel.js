@@ -3,7 +3,7 @@ const db = require('../data/dbConfig');
 module.exports={
 
   async getAll(){
-
+    return db('users');
   },
   async getBy(username){
     return db('users')
