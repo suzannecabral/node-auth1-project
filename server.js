@@ -1,4 +1,8 @@
 const express = require('express');
+// const helmet = require('helmet');
+// const cors = require('cors');
+
+const userRouter = require('./Users/userRouter');
 
 const server = express();
 
@@ -19,8 +23,12 @@ const logger = (req,res,next) => {
 //---------------------------
 //  invoke middleware
 //---------------------------
+// server.user(helmet());
 server.use(express.json());
+// server.use(cors());
 server.use(logger);
+
+server.use('/api', userRouter);
 
 //---------------------------
 //  default response
@@ -29,8 +37,5 @@ server.get('/', (req,res)=>{
   res.status(200).json({message:`Server is running, better go catch it`})
 });
 
-server.get('/api', (req,res)=>{
-  res.status(200).json({message:`Welcome to the api, please use an endpoint`});
-});
 
 module.exports = server;
