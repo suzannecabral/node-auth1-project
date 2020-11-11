@@ -20,3 +20,11 @@ module.exports={
   }
 
 };
+//middleware check for session
+//if session is logged in, user can continue with call
+
+//1. add support for sessions
+//2. session updates when user logs in
+//3. middleware checks if user session true
+//4. user can access protected routes
+  
