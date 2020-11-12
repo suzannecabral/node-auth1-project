@@ -40,28 +40,19 @@ const logger = (req,res,next) => {
 //middleware check for session
 //if session is logged in, user can continue with call
 
-//1. add support for sessions
-//2. session updates when user logs in
-//3. middleware checks if user session true
-//4. user can access protected routes
+//[x] 1. add support for sessions
+//[ ] 2. session updates when user logs in
+//[ ] 3. middleware checks if user session true
+//[ ] 4. user can access protected routes
   
-
-
   //get username and pword from req headers
-
   //if username and password are found
     //then find by username
-
       //then, if user is present 
       //and password matches bcrypt comparesync
-
         //authorized, continue
-
       //else, return 401 invalid credentials
-      
-      
     //if error, 500 
-
   //if not found, 400 no creds provided
 
 

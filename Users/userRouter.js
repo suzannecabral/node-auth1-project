@@ -34,6 +34,7 @@ router.post('/register', (req,res)=>{
     });
 });
 
+
 //--------------------------------
 //login user
 router.post('/login', (req,res)=>{
