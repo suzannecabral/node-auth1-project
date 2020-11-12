@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const Users = require('./userModel');
-const { getAll } = require('./userModel');
+const server = require('../server');
 
 const router = express.Router();
 
@@ -9,14 +9,16 @@ const router = express.Router();
 //endpoints
 
 //default
+//--------------------------------
 router.get('/', (req,res)=>{
   res.status(200).json("Router is working");
 });
 
 
 
-//--------------------------------
+
 //post new user
+//--------------------------------
 router.post('/register', (req,res)=>{
   const newUser = req.body;
 
@@ -35,8 +37,10 @@ router.post('/register', (req,res)=>{
 });
 
 
-//--------------------------------
+
 //login user
+//--------------------------------
+
 router.post('/login', (req,res)=>{
 
   const {username, password} = req.body;
@@ -56,6 +60,25 @@ router.post('/login', (req,res)=>{
     });
 
 });
+
+
+//logout user
+//--------------------------------
+
+router.get('/logout', (req,res)=>{
+  if(req.session){
+    req.session.destroy(err =>{
+      if(err){
+        res.status(500).json({message:'Error logging out'});
+      }else{
+        res.status(200).json({message:'Goodbye!'});
+      }
+    });
+  }
+})
+
+
+
 
 //export
 module.exports = router;

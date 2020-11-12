@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+// const protected = require('./auth/authorize');
 
 //routers
 const userRouter = require('./Users/userRouter');
@@ -9,7 +10,7 @@ const authRouter = require('./auth/authRouter');
 const server = express();
 
 const sessionConfig = {
-  name:'monkey',
+  name:'loginCookie',
   secret: 'keep it secret, keep it safe',
   cookie: {
     maxAge: 1000 * 30,
@@ -55,7 +56,13 @@ const logger = (req,res,next) => {
     //if error, 500 
   //if not found, 400 no creds provided
 
-
+  function protected(req, res, next){
+    if (req.session && req.session.user) {
+      next();
+    }else{
+      res.status(401).json({message:`Valid login required`});
+    }
+  }
 
 
 //use middleware
@@ -68,7 +75,7 @@ server.use(session(sessionConfig));
 //use routers
 //-------------------------
 server.use('/api', userRouter);
-server.use('/api/auth', authRouter)
+server.use('/api/auth', protected, authRouter)
 
 
 
