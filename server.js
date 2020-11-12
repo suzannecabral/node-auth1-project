@@ -1,10 +1,9 @@
 const express = require('express');
-// const helmet = require('helmet');
-// const cors = require('cors');
 const session = require('express-session');
 
 //routers
 const userRouter = require('./Users/userRouter');
+const authRouter = require('./auth/authRouter');
 
 //new server
 const server = express();
@@ -34,8 +33,19 @@ const logger = (req,res,next) => {
   next();
 }
 
+
 // Middleware: Authorize
 //---------------------------
+
+//middleware check for session
+//if session is logged in, user can continue with call
+
+//1. add support for sessions
+//2. session updates when user logs in
+//3. middleware checks if user session true
+//4. user can access protected routes
+  
+
 
   //get username and pword from req headers
 
@@ -59,10 +69,7 @@ const logger = (req,res,next) => {
 
 //use middleware
 //-------------------------
-
-// server.user(helmet());
 server.use(express.json());
-// server.use(cors());
 server.use(logger);
 server.use(session(sessionConfig));
 
@@ -70,7 +77,7 @@ server.use(session(sessionConfig));
 //use routers
 //-------------------------
 server.use('/api', userRouter);
-
+server.use('/api/auth', authRouter)
 
 
 
